@@ -78,6 +78,9 @@ GET     /_template/logstash
     "aliases": {}
 }
 
+将上面的json内容保存到：/usr/local/logstash-6.4.3/sync/logstash-ik.json 文件中
+然后修改logstash-db-sync.conf 文件，在output 中增加下面的配置修改模板。设置text类型的分词为ik_max_word
+
 新增如下配置，用于更新模板，设置中文分词
 
 # 定义模板名称
