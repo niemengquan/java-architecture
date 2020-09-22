@@ -92,6 +92,32 @@ template_overwrite => true
 # 默认为true，false关闭logstash自动管理模板功能，如果自定义模板，则设置为false
 manage_template => false
 
+修改完成之后的 logstash-ik.json 文件的output部分看起来是这样子的：
+output {
+    elasticsearch {
+        # es地址
+        hosts => ["192.168.86.164:9200"]
+        # 同步的索引名
+        index => "es-shopping"
+        # 设置_docID和数据相同
+        document_id => "%{itemId}"
+        # 定义模板名称
+        template_name => "myik"
+        # 模板所在位置
+        template => "/usr/local/logstash-6.4.3/sync/logstash-ik.json"
+        # 重写模板
+        template_overwrite => true
+        # 默认为true，false关闭logstash自动管理模板功能，如果自定义模板，则设置为false
+        manage_template => false
+    }
+    # 日志输出
+    stdout {
+        codec => json_lines
+    }
+
+}
+
+
 重新运行Logstash进行同步
 
 ./logstash -f /usr/local/logstash-6.4.3/sync/logstash-db-sync.conf
